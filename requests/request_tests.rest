@@ -17,3 +17,9 @@ GET http://localhost:3001/api/persons/1
 
 ### Get individual entry (not found)
 GET http://localhost:3001/api/persons/-1
+
+### Delete individual entry (found)
+DELETE  http://localhost:3001/api/persons/1
+
+### Delete individual entry (not found)
+GET http://localhost:3001/api/persons/-1

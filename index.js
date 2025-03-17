@@ -1,7 +1,7 @@
 const express = require("express");
 const api = express();
 
-const entries = [
+let entries = [
   {
     id: "1",
     name: "Arto Hellas",
@@ -48,6 +48,19 @@ api.get("/api/persons/:id", (req, res) => {
   const entryFound = entries.find((e) => e.id === id);
 
   entryFound ? res.send(entryFound) : res.status(404).end();
+});
+
+// Delete individual entry
+api.delete("/api/persons/:id", (req, res) => {
+  const id = req.params.id;
+  const entryFound = entries.find((e) => e.id === id);
+
+  if (entryFound) {
+    entries = entries.filter((e) => e.id !== id);
+    res.status(204).end();
+  } else {
+    res.status(404).end();
+  }
 });
 
 const PORT = 3001;
