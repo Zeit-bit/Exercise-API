@@ -68,8 +68,13 @@ api.delete("/api/persons/:id", (req, res) => {
 // Post new entry
 api.post("/api/persons", (req, res) => {
   const body = req.body;
+
   if (!body.name || !body.number)
     return res.status(400).json({ error: "name and/or number missing" });
+
+  const entryWithSameNameFound = entries.find((e) => e.name === body.name);
+  if (entryWithSameNameFound)
+    return res.status(400).json({ error: "name must be unique" });
 
   const newEntry = {
     id: String(Math.random()),
