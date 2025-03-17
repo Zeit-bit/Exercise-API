@@ -1,0 +1,25 @@
+{
+  "name": "phonebook-api",
+  "version": "1.0.0",
+  "description": "Backend exercises from fullstackopen Part 3 - https://fullstackopen.com/en/part3/node_js_and_express",
+  "homepage": "https://github.com/Zeit-bit/Exercise-API#readme",
+  "bugs": {
+    "url": "https://github.com/Zeit-bit/Exercise-API/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zeit-bit/Exercise-API.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
