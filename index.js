@@ -1,6 +1,8 @@
 const express = require("express");
 const api = express();
 
+api.use(express.json());
+
 let entries = [
   {
     id: "1",
@@ -61,6 +63,22 @@ api.delete("/api/persons/:id", (req, res) => {
   } else {
     res.status(404).end();
   }
+});
+
+// Post new entry
+api.post("/api/persons", (req, res) => {
+  const body = req.body;
+  if (!body.name || !body.number)
+    return res.status(400).json({ error: "name and/or number missing" });
+
+  const newEntry = {
+    id: String(Math.random()),
+    ...body,
+  };
+
+  entries = [...entries, newEntry];
+
+  res.status(201).json(newEntry);
 });
 
 const PORT = 3001;

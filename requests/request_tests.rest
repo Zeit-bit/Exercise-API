@@ -23,3 +23,20 @@ DELETE  http://localhost:3001/api/persons/1
 
 ### Delete individual entry (not found)
 GET http://localhost:3001/api/persons/-1
+
+### Post valid entry
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "John Frusciante",
+    "number": "111-222-3333"
+}
+
+### Post invalid entry
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "number": "111-222-3333"
+}
