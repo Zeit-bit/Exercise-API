@@ -26,7 +26,16 @@ let entries = [
 ];
 
 api.use(express.json());
-api.use(morgan("tiny"));
+
+morgan.token("object-sent", function (req, res) {
+  return JSON.stringify(req.body);
+});
+
+api.use(
+  morgan(
+    ":method :url :status :res[content-length] - :response-time ms :object-sent"
+  )
+);
 
 /*************************
     General Info
