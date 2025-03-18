@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const api = express();
 
 let entries = [
@@ -25,6 +26,7 @@ let entries = [
   },
 ];
 
+api.use(cors());
 api.use(express.json());
 
 morgan.token("object-sent", function (req, res) {
