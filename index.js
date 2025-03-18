@@ -28,6 +28,7 @@ let entries = [
 
 api.use(cors());
 api.use(express.json());
+api.use(express.static("dist"));
 
 morgan.token("object-sent", function (req, res) {
   return JSON.stringify(req.body);
