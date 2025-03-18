@@ -1,7 +1,6 @@
 const express = require("express");
+const morgan = require("morgan");
 const api = express();
-
-api.use(express.json());
 
 let entries = [
   {
@@ -25,6 +24,9 @@ let entries = [
     number: "39-23-6423122",
   },
 ];
+
+api.use(express.json());
+api.use(morgan("tiny"));
 
 /*************************
     General Info

@@ -22,7 +22,7 @@ GET http://localhost:3001/api/persons/-1
 DELETE  http://localhost:3001/api/persons/1
 
 ### Delete individual entry (not found)
-GET http://localhost:3001/api/persons/-1
+DELETE  http://localhost:3001/api/persons/-1
 
 ### Post valid entry
 POST http://localhost:3001/api/persons
