@@ -1,7 +1,9 @@
+require("dotenv").config(".env");
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const api = express();
+const PhoneEntry = require("./models/phoneEntry");
 
 let entries = [
   {
@@ -55,7 +57,9 @@ api.get("/info", (req, res) => {
 
 // Get all entries
 api.get("/api/persons", (req, res) => {
-  res.json(entries);
+  PhoneEntry.find({}).then((phoneEntries) => {
+    res.json(phoneEntries);
+  });
 });
 
 // Get individual entry
@@ -100,7 +104,7 @@ api.post("/api/persons", (req, res) => {
   res.status(201).json(newEntry);
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT;
 api.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
