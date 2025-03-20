@@ -13,7 +13,7 @@ GET http://localhost:3001/info
 GET http://localhost:3001/api/persons
 
 ### Get individual entry (found)
-GET http://localhost:3001/api/persons/1
+GET http://localhost:3001/api/persons/67d9bff3ed4cca2469278424
 
 ### Get individual entry (not found)
 GET http://localhost:3001/api/persons/-1

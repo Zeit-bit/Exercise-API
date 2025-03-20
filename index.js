@@ -5,29 +5,6 @@ const cors = require("cors");
 const api = express();
 const PhoneEntry = require("./models/phoneEntry");
 
-let entries = [
-  {
-    id: "1",
-    name: "Arto Hellas",
-    number: "040-123456",
-  },
-  {
-    id: "2",
-    name: "Ada Lovelace",
-    number: "39-44-5323523",
-  },
-  {
-    id: "3",
-    name: "Dan Abramov",
-    number: "12-43-234345",
-  },
-  {
-    id: "4",
-    name: "Mary Poppendieck",
-    number: "39-23-6423122",
-  },
-];
-
 api.use(cors());
 api.use(express.json());
 api.use(express.static("dist"));
@@ -46,9 +23,9 @@ api.use(
     General Info
 **************************/
 api.get("/info", (req, res) => {
-  res.send(
-    `<p>Phonebook has info for ${entries.length} people</p><p>${Date()}</p>`
-  );
+  PhoneEntry.estimatedDocumentCount().then((count) => {
+    res.send(`<p>Phonebook has info for ${count} people</p><p>${Date()}</p>`);
+  });
 });
 
 /*************************
@@ -63,11 +40,14 @@ api.get("/api/persons", (req, res) => {
 });
 
 // Get individual entry
-api.get("/api/persons/:id", (req, res) => {
-  const id = req.params.id;
-  const entryFound = entries.find((e) => e.id === id);
-
-  entryFound ? res.send(entryFound) : res.status(404).end();
+api.get("/api/persons/:id", (req, res, next) => {
+  PhoneEntry.findById(req.params.id)
+    .then((entryFound) => {
+      entryFound ? res.json(entryFound) : res.status(404).end();
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 // Delete individual entry
