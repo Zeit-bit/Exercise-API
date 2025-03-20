@@ -18,10 +18,10 @@ GET http://localhost:3001/api/persons/1
 ### Get individual entry (not found)
 GET http://localhost:3001/api/persons/-1
 
-### Delete individual entry (found)
-DELETE  http://localhost:3001/api/persons/1
+### Delete individual entry (found || notFound)
+DELETE  http://localhost:3001/api/persons/67dadc93f83d13bf16532f9b
 
-### Delete individual entry (not found)
+### Delete individual entry (Malformatted id)
 DELETE  http://localhost:3001/api/persons/-1
 
 ### Post valid entry

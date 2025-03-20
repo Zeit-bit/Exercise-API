@@ -72,15 +72,13 @@ api.get("/api/persons/:id", (req, res) => {
 
 // Delete individual entry
 api.delete("/api/persons/:id", (req, res) => {
-  const id = req.params.id;
-  const entryFound = entries.find((e) => e.id === id);
-
-  if (entryFound) {
-    entries = entries.filter((e) => e.id !== id);
-    res.status(204).end();
-  } else {
-    res.status(404).end();
-  }
+  PhoneEntry.findByIdAndDelete(req.params.id)
+    .then((entryFound) => {
+      res.status(204).end();
+    })
+    .catch((error) => {
+      res.status(400).json({ error: "Malformmatted id" });
+    });
 });
 
 // Post new entry
@@ -90,9 +88,7 @@ api.post("/api/persons", (req, res) => {
   if (!body.name || !body.number)
     return res.status(400).json({ error: "name and/or number missing" });
 
-  const newEntry = new PhoneEntry({
-    ...body,
-  });
+  const newEntry = new PhoneEntry({ ...body });
 
   newEntry.save().then((savedEntry) => {
     res.status(201).json(savedEntry);
