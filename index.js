@@ -62,7 +62,7 @@ api.delete("/api/persons/:id", (req, res, next) => {
 });
 
 // Post new entry
-api.post("/api/persons", (req, res) => {
+api.post("/api/persons", (req, res, next) => {
   const body = req.body;
 
   if (!body.name || !body.number)
@@ -70,9 +70,14 @@ api.post("/api/persons", (req, res) => {
 
   const newEntry = new PhoneEntry({ ...body });
 
-  newEntry.save().then((savedEntry) => {
-    res.status(201).json(savedEntry);
-  });
+  newEntry
+    .save()
+    .then((savedEntry) => {
+      res.status(201).json(savedEntry);
+    })
+    .catch((error) => {
+      next(error);
+    });
 });
 
 // Put to update number of an existing entry
@@ -95,7 +100,8 @@ const ErrorHandler = (error, req, res, next) => {
 
   if (error.name === "CastError")
     return res.status(400).json({ error: "Malformmatted id" });
-
+  if (error.name === "ValidationError")
+    return res.status(400).json({ error: error.message });
   next(error);
 };
 

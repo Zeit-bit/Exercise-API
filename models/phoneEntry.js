@@ -12,7 +12,10 @@ mongoose
     console.log("Connection failed", error);
   });
 
-const phoneEntrySchema = new Schema({ name: String, number: String });
+const phoneEntrySchema = new Schema({
+  name: { type: String, minLength: 3 },
+  number: String,
+});
 phoneEntrySchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
