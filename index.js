@@ -85,12 +85,14 @@ api.put("/api/persons/:id", (req, res, next) => {
   PhoneEntry.findByIdAndUpdate(
     req.params.id,
     { number: req.body.number },
-    { new: true }
+    { new: true, runValidators: true }
   )
     .then((updatedEntry) => {
+      console.log(updatedEntry);
       res.status(202).json(updatedEntry);
     })
     .catch((error) => {
+      console.log(error);
       next(error);
     });
 });

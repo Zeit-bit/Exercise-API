@@ -13,8 +13,20 @@ mongoose
   });
 
 const phoneEntrySchema = new Schema({
-  name: { type: String, minLength: 3 },
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+  },
+  number: {
+    type: String,
+    validate: {
+      validator: (v) => {
+        return /^\d{2,3}-\d+$/.test(v);
+      },
+      message: (props) => `${props.value} is not a valid phone number!`,
+    },
+    minLength: 8,
+  },
 });
 phoneEntrySchema.set("toJSON", {
   transform: (document, returnedObject) => {
