@@ -95,6 +95,21 @@ api.post("/api/persons", (req, res) => {
   });
 });
 
+// Put to update number of an existing entry
+api.put("/api/persons/:id", (req, res, next) => {
+  PhoneEntry.findByIdAndUpdate(
+    req.params.id,
+    { number: req.body.number },
+    { new: true }
+  )
+    .then((updatedEntry) => {
+      res.status(202).json(updatedEntry);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 const ErrorHandler = (error, req, res, next) => {
   console.error(error);
 

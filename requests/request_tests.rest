@@ -40,3 +40,11 @@ Content-Type: application/json
 {
     "number": "111-222-3333"
 }
+
+### Put a changed number to an existing entry
+PUT http://localhost:3001/api/persons/67da4ba6e5f428279bab08e9
+Content-Type: application/json
+
+{
+    "number": "100-000-0001"
+}
