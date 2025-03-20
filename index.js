@@ -71,13 +71,13 @@ api.get("/api/persons/:id", (req, res) => {
 });
 
 // Delete individual entry
-api.delete("/api/persons/:id", (req, res) => {
+api.delete("/api/persons/:id", (req, res, next) => {
   PhoneEntry.findByIdAndDelete(req.params.id)
     .then((entryFound) => {
       res.status(204).end();
     })
     .catch((error) => {
-      res.status(400).json({ error: "Malformmatted id" });
+      next(error);
     });
 });
 
@@ -94,6 +94,17 @@ api.post("/api/persons", (req, res) => {
     res.status(201).json(savedEntry);
   });
 });
+
+const ErrorHandler = (error, req, res, next) => {
+  console.error(error);
+
+  if (error.name === "CastError")
+    return res.status(400).json({ error: "Malformmatted id" });
+
+  next(error);
+};
+
+api.use(ErrorHandler);
 
 const PORT = process.env.PORT;
 api.listen(PORT, () => {
